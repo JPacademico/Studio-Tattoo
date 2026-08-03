@@ -1,0 +1,320 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-void: #050506;
+  --color-ink: #0b0b0d;
+  --color-coal: #121215;
+  --color-ash: #1b1b1f;
+  --color-slate: #2a2a30;
+
+  --color-bone: #ece7dd;
+  --color-dust: #a8a29a;
+  --color-muted: #736e67;
+
+  --color-ember: #d4402a;
+  --color-ember-bright: #ff6a4d;
+  --color-ember-dim: #7a2318;
+
+  --color-paper: #f2ede3;
+  --color-note: #f5e27a;
+
+  --font-display: 'Instrument Serif', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-hand: 'Caveat', ui-rounded, 'Segoe Script', cursive;
+
+  --radius-card: 1.25rem;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --animate-drift: drift 22s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+  --animate-scan: scan 2.1s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% {
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    transform: translate3d(0, 260%, 0);
+  }
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-4%, 0, 0) scale(1);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Header is fixed — keep anchor targets clear of it. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 0.95;
+  }
+
+  ::selection {
+    background: var(--color-ember);
+    color: var(--color-bone);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ember-bright);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Inputs must not zoom the viewport on iOS — 16px is the threshold. */
+  input,
+  textarea,
+  select,
+  button {
+    font-family: inherit;
+    font-size: 16px;
+  }
+
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Scroll reveals
+ *
+ * Compositor-only (opacity + transform). No blur: filtering ~40 elements
+ * on scroll was the single most expensive effect on the page.
+ * ------------------------------------------------------------------ */
+.sjt-reveal {
+  opacity: 0;
+  transform: translate3d(var(--reveal-x, 0px), var(--reveal-y, 34px), 0);
+  transition:
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
+}
+
+.sjt-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.sjt-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.sjt-word {
+  display: inline-block;
+  transform: translate3d(0, 110%, 0);
+  transition: transform 0.9s var(--ease-out-expo);
+}
+
+.sjt-words.is-visible .sjt-word {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Line that draws itself in — path length is ~1220 user units. */
+.sjt-draw {
+  stroke-dasharray: 1300;
+  stroke-dashoffset: 1300;
+  transition: stroke-dashoffset 1.4s var(--ease-out-expo);
+}
+
+.sjt-draw.is-visible {
+  stroke-dashoffset: 0;
+}
+
+/* Staggered fade for the manifesto quote. */
+.sjt-fadeword {
+  display: inline-block;
+  opacity: 0.12;
+  transition: opacity 0.5s ease-out;
+}
+
+.sjt-fade.is-visible .sjt-fadeword {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sjt-reveal,
+  .sjt-word {
+    transform: none;
+  }
+  .sjt-word {
+    opacity: 0;
+    transition: opacity 0.2s linear;
+  }
+  .sjt-words.is-visible .sjt-word {
+    opacity: 1;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilities
+ * ------------------------------------------------------------------ */
+
+/* Film grain. One fixed element, no repaint cost. */
+@utility grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+@utility vignette {
+  background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgb(5 5 6 / 0.85) 100%);
+}
+
+/* Fades the left/right edge of a horizontal scroller. */
+@utility edge-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Torn-paper texture used by the polaroids and sticky notes. */
+@utility paper {
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(rgb(0 0 0 / 0.02) 1px, transparent 1px),
+    radial-gradient(circle at 20% 30%, rgb(0 0 0 / 0.035), transparent 45%);
+  background-size:
+    100% 3px,
+    100% 100%;
+}
+
+@utility hairline {
+  border-color: rgb(236 231 221 / 0.09);
+}
+
+/* Only render the hover treatment on devices that truly hover. */
+@custom-variant hoverable (@media (hover: hover) and (pointer: fine));
+
+/* ------------------------------------------------------------------ *
+ * Third-party: Leaflet, restyled for the dark theme
+ * ------------------------------------------------------------------ */
+.leaflet-container {
+  background: var(--color-void);
+  font-family: var(--font-sans);
+  outline: none;
+}
+
+.leaflet-control-zoom a {
+  background: rgb(18 18 21 / 0.92) !important;
+  color: var(--color-bone) !important;
+  border-color: rgb(236 231 221 / 0.12) !important;
+  transition: background 0.2s ease;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--color-ash) !important;
+  color: var(--color-ember-bright) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgb(5 5 6 / 0.75) !important;
+  color: var(--color-muted) !important;
+  font-size: 10px !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.leaflet-control-attribution a {
+  color: var(--color-dust) !important;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: var(--color-coal) !important;
+  color: var(--color-bone) !important;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.6) !important;
+  border: 1px solid rgb(236 231 221 / 0.1);
+}
+
+.leaflet-popup-content {
+  margin: 0.875rem 1rem !important;
+  font-size: 13px;
+}
+
+.leaflet-popup-close-button {
+  color: var(--color-muted) !important;
+}
+
+/* Custom marker — no default Leaflet icon sprite, so nothing 404s. */
+.sjt-marker {
+  background: transparent;
+  border: 0;
+}
