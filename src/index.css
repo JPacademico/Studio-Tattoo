@@ -216,6 +216,60 @@
   }
 }
 
+/*
+ * Tattoo machine decorative icon — deliberately has no idle motion. The
+ * needle's animation is defined but sits `paused` until a real hover starts
+ * it, so it costs nothing on the page until someone's pointer is on it (and
+ * never on touch, since the whole block is gated behind the same
+ * hover-capable-pointer query the rest of the site's hover flourishes use).
+ */
+.sjt-machine .sjt-needle {
+  animation: sjt-needle-buzz 0.11s steps(2, jump-none) infinite;
+  animation-play-state: paused;
+}
+
+.sjt-machine .sjt-coil {
+  transition: stroke 0.3s ease;
+}
+
+.sjt-machine .sjt-drop {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: translateY(-2px) scale(0.6);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+@keyframes sjt-needle-buzz {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-2.4px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sjt-machine:hover .sjt-needle {
+    animation-play-state: running;
+  }
+  .sjt-machine:hover .sjt-coil {
+    stroke: var(--color-ember-bright);
+  }
+  .sjt-machine:hover .sjt-drop {
+    opacity: 1;
+    transform: translateY(2px) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sjt-machine .sjt-needle {
+    animation: none;
+  }
+}
+
 /* ------------------------------------------------------------------ *
  * Utilities
  * ------------------------------------------------------------------ */

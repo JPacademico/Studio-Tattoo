@@ -31,11 +31,16 @@ export function Artists() {
 
         {/* Snap-scroll carousel on phones, grid from md up. Tighter gap below
             sm keeps a sliver of the next card in view, hinting there's more.
-            touch-action:pan-x tells the browser this element only claims
-            horizontal drags — without it, a vertical swipe that starts here
-            gets captured by the horizontal scroller instead of scrolling the
-            page, so the user has to lift their thumb outside the carousel. */}
-        <div className="mt-12 -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-4 [touch-action:pan-x] sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:touch-auto md:px-0 lg:grid-cols-4">
+            Three things had to line up to stop this from swallowing vertical
+            swipes: touch-action:pan-x (this element only claims horizontal
+            drags), overflow-y:hidden (setting overflow-x to anything but
+            `visible` silently upgrades an unset overflow-y to `auto` too —
+            per spec — so even a 1px flex/font rounding overflow was enough
+            to make this a second, competing vertical scroll target), and
+            snap-proximity instead of snap-mandatory (WebKit holds a mandatory
+            snap axis more possessively while it's still resolving which way
+            a touch is going, which alone was enough to eat the gesture). */}
+        <div className="mt-12 -mx-5 flex snap-x snap-proximity gap-3 overflow-x-auto overflow-y-hidden px-5 pb-4 [touch-action:pan-x] sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:touch-auto md:px-0 lg:grid-cols-4">
           {artists.map((artist, i) => (
             <ArtistCard key={artist.id} artist={artist} index={i} />
           ))}
