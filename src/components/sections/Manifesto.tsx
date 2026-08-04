@@ -2,7 +2,9 @@ import { manifesto, studioShots } from '@/data/studio'
 import { photo } from '@/lib/images'
 import { NeedleDivider } from '@/components/ui/Atmosphere'
 import { useReveal } from '@/components/ui/Reveal'
-import { cn } from '@/lib/utils'
+import { cn, isEmberWord } from '@/lib/utils'
+
+const EMBER_WORDS = ['arte']
 
 export function Manifesto() {
   const { ref, shown } = useReveal<HTMLQuoteElement>(0.4)
@@ -36,7 +38,7 @@ export function Manifesto() {
           {words.map((word, i) => (
             <span
               key={`${word}-${i}`}
-              className="sjt-fadeword"
+              className={cn('sjt-fadeword', isEmberWord(word, EMBER_WORDS) && 'text-ember-bright')}
               style={{ transitionDelay: `${i * 0.035}s` }}
             >
               {word}&nbsp;

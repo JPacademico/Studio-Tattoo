@@ -57,7 +57,7 @@ export function About() {
           </Reveal>
 
           <h2 className="mt-4 text-[clamp(2.4rem,6vw,4.2rem)] leading-[0.95] text-bone">
-            <RevealWords text="Feito à mão," className="block" />
+            <RevealWords text="Feito à mão," className="block" emberWords={['mão']} />
             <RevealWords text="em Aracaju." className="block italic text-dust" delay={0.15} />
           </h2>
 
@@ -69,14 +69,7 @@ export function About() {
             </p>
           </Reveal>
 
-          <Reveal delay={0.18}>
-            <p className="mt-4 max-w-xl text-[0.98rem] leading-relaxed text-muted">
-              Atendemos só com hora marcada, um cliente por vez. Isso significa tempo pra desenhar
-              direito, conversar sem pressa e trabalhar no ritmo que a peça pedir.
-            </p>
-          </Reveal>
-
-          <ul className="mt-10 space-y-px">
+          <ul className="mt-8 space-y-px">
             {differentials.map((item, i) => (
               <Reveal key={item.title} delay={0.08 * i}>
                 <li className="group flex gap-5 border-t border-bone/8 py-5">

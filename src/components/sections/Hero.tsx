@@ -14,7 +14,7 @@ import { photo, photoSrcSet } from '@/lib/images'
 import { Link } from '@/lib/router'
 import { buttonStyles } from '@/components/ui/Button'
 import { useHasFinePointer } from '@/hooks'
-import { cn } from '@/lib/utils'
+import { cn, isEmberWord } from '@/lib/utils'
 
 export function Hero() {
   const reduced = useReducedMotion()
@@ -71,7 +71,7 @@ export function Hero() {
         </motion.p>
 
         <h1 className="mt-5 text-[clamp(2.6rem,9vw,5.5rem)] leading-[0.92] text-bone">
-          <HeroLine text="A tatuagem que" delay={0.25} />
+          <HeroLine text="A tatuagem que" delay={0.25} emberWords={['tatuagem']} />
           <HeroLine text="você não vai" delay={0.35} />
           <HeroLine text="se arrepender." delay={0.45} italic />
         </h1>
@@ -133,7 +133,19 @@ export function Hero() {
   )
 }
 
-function HeroLine({ text, delay, italic }: { text: string; delay: number; italic?: boolean }) {
+function HeroLine({
+  text,
+  delay,
+  italic,
+  emberWords,
+}: {
+  text: string
+  delay: number
+  italic?: boolean
+  emberWords?: readonly string[]
+}) {
+  const words = text.split(' ')
+
   return (
     <span className="block overflow-hidden">
       <motion.span
@@ -142,7 +154,17 @@ function HeroLine({ text, delay, italic }: { text: string; delay: number; italic
         transition={{ delay, duration: 1, ease: [0.16, 1, 0.3, 1] }}
         className={cn('block', italic && 'italic text-dust')}
       >
-        {text}
+        {emberWords
+          ? words.map((word, i) => (
+              <span
+                key={`${word}-${i}`}
+                className={isEmberWord(word, emberWords) ? 'text-ember-bright' : undefined}
+              >
+                {word}
+                {i < words.length - 1 ? ' ' : ''}
+              </span>
+            ))
+          : text}
       </motion.span>
     </span>
   )

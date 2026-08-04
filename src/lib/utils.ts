@@ -51,3 +51,13 @@ export function protocolCode(seed: string): string {
 export function waLink(number: string, message: string): string {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`
 }
+
+function bareWord(word: string): string {
+  return word.toLowerCase().replace(/[.,!?;:"'“”]+$/, '')
+}
+
+/** Case/punctuation-insensitive check used to pick out a headline's key word for ember highlighting. */
+export function isEmberWord(word: string, targets: readonly string[]): boolean {
+  const bare = bareWord(word)
+  return targets.some((target) => bareWord(target) === bare)
+}

@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import type { CSSProperties, ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { cn, isEmberWord } from '@/lib/utils'
 
 /**
  * Scroll reveals, driven by ONE shared IntersectionObserver and plain CSS
@@ -134,10 +134,13 @@ export function RevealWords({
   text,
   className,
   delay = 0,
+  emberWords,
 }: {
   text: string
   className?: string
   delay?: number
+  /** Words (matched case/punctuation-insensitively) to render in the ember accent. */
+  emberWords?: readonly string[]
 }) {
   const { ref, shown } = useReveal<HTMLSpanElement>(0.3)
   const words = text.split(' ')
@@ -147,7 +150,13 @@ export function RevealWords({
       {words.map((word, i) => (
         <Fragment key={`${word}-${i}`}>
           <span className="sjt-word-mask">
-            <span className="sjt-word" style={{ transitionDelay: `${delay + i * 0.06}s` }}>
+            <span
+              className={cn(
+                'sjt-word',
+                emberWords && isEmberWord(word, emberWords) && 'text-ember-bright',
+              )}
+              style={{ transitionDelay: `${delay + i * 0.06}s` }}
+            >
               {word}
             </span>
           </span>

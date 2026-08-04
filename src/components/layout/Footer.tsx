@@ -18,7 +18,7 @@ export function FinalCta() {
 
       <div className="mx-auto flex max-w-[80rem] flex-col items-center gap-9 text-center">
         <h2 className="text-[clamp(2.4rem,7vw,5rem)] leading-[0.94] text-bone">
-          <RevealWords text="Vamos criar algo" className="block" />
+          <RevealWords text="Vamos criar algo" className="block" emberWords={['criar']} />
           <RevealWords text="permanente." className="block italic text-dust" delay={0.14} />
         </h2>
 
@@ -73,7 +73,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp do estúdio"
-                className="grid size-10 place-items-center rounded-full border border-bone/12 text-dust transition-colors hoverable:hover:border-ember hoverable:hover:text-ember-bright"
+                className="grid size-10 place-items-center rounded-full border border-ember/30 bg-ember/[0.06] text-ember transition-colors hoverable:hover:border-ember hoverable:hover:text-ember-bright"
               >
                 <WhatsAppIcon size={17} />
               </a>
@@ -82,7 +82,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram do estúdio"
-                className="grid size-10 place-items-center rounded-full border border-bone/12 text-dust transition-colors hoverable:hover:border-bone/40 hoverable:hover:text-bone"
+                className="grid size-10 place-items-center rounded-full border border-ember/30 bg-ember/[0.06] text-ember transition-colors hoverable:hover:border-ember hoverable:hover:text-ember-bright"
               >
                 <InstagramIcon size={17} />
               </a>

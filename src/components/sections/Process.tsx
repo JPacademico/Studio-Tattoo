@@ -90,13 +90,13 @@ export function Process() {
               <p className="eyebrow">Como funciona</p>
             </Reveal>
             <h2 className="mt-4 text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[0.95] text-bone">
-              <RevealWords text="Da ideia" className="block" />
+              <RevealWords text="Da ideia" className="block" emberWords={['ideia']} />
               <RevealWords text="até a pele" className="block italic text-dust" delay={0.12} />
             </h2>
             <Reveal delay={0.1}>
               <p className="mt-6 text-[0.95rem] leading-relaxed text-muted">
-                Quatro etapas, do primeiro "tô pensando em fazer" até a tatuagem cicatrizada. Você
-                sabe o que vai acontecer em cada uma delas.
+                Três etapas, do primeiro "tô pensando em fazer" até a tatuagem pronta. Você sabe o
+                que vai acontecer em cada uma delas.
               </p>
             </Reveal>
           </div>
@@ -189,7 +189,6 @@ function StepCard({ step, index, total, progress, reduced, pinRef }: StepCardPro
         index === 0 && 'lg:row-start-1',
         index === 1 && 'lg:row-start-2 lg:-mt-32',
         index === 2 && 'lg:row-start-3 lg:-mt-40',
-        index === 3 && 'lg:row-start-4 lg:-mt-32',
       )}
     >
       {/* Uniform height on lg: the cards overlap by fixed negative margins, and

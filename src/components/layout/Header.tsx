@@ -7,6 +7,7 @@ import { studio } from '@/data/studio'
 import { cn, waLink } from '@/lib/utils'
 import { buttonStyles } from '@/components/ui/Button'
 import { WhatsAppIcon } from '@/components/ui/BrandIcons'
+import { InstallButton } from '@/components/pwa/InstallButton'
 import { Wordmark } from './Logo'
 
 type NavItem = {
@@ -140,12 +141,14 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <InstallButton variant="icon" />
+
             <a
               href={waLink(studio.whatsapp, 'Olá! Vim pelo site do Studio Junior Tattoo.')}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Falar no WhatsApp"
-              className="hidden size-10 place-items-center rounded-full border border-bone/15 text-dust transition-colors hoverable:hover:border-bone/40 hoverable:hover:text-bone sm:grid"
+              className="hidden size-10 place-items-center rounded-full border border-ember/30 bg-ember/[0.06] text-ember transition-colors hoverable:hover:border-ember hoverable:hover:text-ember-bright sm:grid"
             >
               <WhatsAppIcon size={17} />
             </a>
@@ -270,6 +273,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                     <WhatsAppIcon size={17} />
                     Chamar no WhatsApp
                   </a>
+                  <InstallButton variant="block" />
                 </motion.div>
               </nav>
 

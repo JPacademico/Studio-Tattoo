@@ -4,8 +4,8 @@ import { useLocation } from '@/lib/router'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { Atmosphere, ScrollProgress } from '@/components/ui/Atmosphere'
-import { InstallPrompt } from '@/components/pwa/InstallPrompt'
 import { ReloadPrompt } from '@/components/pwa/ReloadPrompt'
+import { WhatsAppFab } from '@/components/whatsapp/WhatsAppFab'
 import { HomePage } from '@/pages/HomePage'
 
 /**
@@ -59,6 +59,7 @@ function useIdlePrefetch() {
 export function App() {
   const { pathname } = useLocation()
   const route = renderRoute(pathname)
+  const isHome = route.key === 'home'
   useIdlePrefetch()
 
   return (
@@ -83,7 +84,9 @@ export function App() {
         <Footer />
       </div>
 
-      <InstallPrompt />
+      {/* Only on the home page — the booking flow and gallery already have
+          their own contextual WhatsApp entry points. */}
+      {isHome && <WhatsAppFab />}
       <ReloadPrompt />
     </>
   )

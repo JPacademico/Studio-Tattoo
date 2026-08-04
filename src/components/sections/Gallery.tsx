@@ -33,7 +33,7 @@ export function Gallery() {
               <p className="eyebrow">Galeria</p>
             </Reveal>
             <h2 className="mt-4 text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[0.95] text-bone">
-              <RevealWords text="No mural" className="block" />
+              <RevealWords text="No mural" className="block" emberWords={['mural']} />
               <RevealWords text="do estúdio" className="block italic text-dust" delay={0.12} />
             </h2>
           </div>

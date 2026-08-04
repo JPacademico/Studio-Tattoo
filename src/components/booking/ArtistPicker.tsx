@@ -1,20 +1,8 @@
-import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Check } from 'lucide-react'
 import { artists } from '@/data/studio'
-import { formatLongDate, isDayAvailable, startOfToday, toISODate } from '@/lib/availability'
 import { SmartImage } from '@/components/ui/SmartImage'
 import { cn } from '@/lib/utils'
-
-/** Scans forward for the first bookable day so each card can advertise it. */
-function nextOpening(artistId: string): string | null {
-  const cursor = startOfToday()
-  for (let i = 0; i < 45; i++) {
-    if (isDayAvailable(artistId, cursor)) return toISODate(cursor)
-    cursor.setDate(cursor.getDate() + 1)
-  }
-  return null
-}
 
 export function ArtistPicker({
   value,
@@ -25,11 +13,6 @@ export function ArtistPicker({
   onChange: (id: string) => void
   layoutId?: string
 }) {
-  const openings = useMemo(
-    () => Object.fromEntries(artists.map((a) => [a.id, nextOpening(a.id)])),
-    [],
-  )
-
   return (
     <div
       role="radiogroup"
@@ -38,7 +21,6 @@ export function ArtistPicker({
     >
       {artists.map((artist, i) => {
         const selected = value === artist.id
-        const opening = openings[artist.id]
 
         return (
           <motion.button
@@ -112,17 +94,6 @@ export function ArtistPicker({
                   </li>
                 ))}
               </ul>
-
-              <p className="mt-3 border-t border-bone/8 pt-3 text-[0.72rem] text-muted">
-                {opening ? (
-                  <>
-                    Próxima vaga:{' '}
-                    <span className="text-dust">{formatLongDate(opening)}</span>
-                  </>
-                ) : (
-                  'Agenda cheia nos próximos 45 dias'
-                )}
-              </p>
             </div>
           </motion.button>
         )

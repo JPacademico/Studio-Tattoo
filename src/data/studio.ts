@@ -257,14 +257,8 @@ export const processSteps: ProcessStep[] = [
   {
     number: '03',
     title: 'O dia da sessão',
-    body: 'Material descartável, ambiente climatizado e o tempo que a peça precisar. A gente trabalha em ritmo confortável, com pausas sempre que você pedir. Você sai daqui com uma tatuagem feita pra durar.',
+    body: 'Material descartável, ambiente climatizado e o tempo que a peça precisar. A gente trabalha em ritmo confortável, com pausas sempre que você pedir. Você sai daqui com uma tatuagem feita pra durar, com as instruções de cuidado e o contato direto do artista.',
     photoId: 'photo-1542744383-8c330d91f4b1',
-  },
-  {
-    number: '04',
-    title: 'Cuidando da arte',
-    body: 'A cicatrização é metade do resultado. Você vai embora com as instruções, o material de cuidado e o contato direto do artista. Retoque dentro de 90 dias é por nossa conta.',
-    photoId: 'photo-1568515045052-f9a854d70bfd',
   },
 ]
 
@@ -288,21 +282,6 @@ export const faq: FaqItem[] = [
     question: 'Como faço para agendar?',
     answer:
       'Pelo próprio site, em "Agendar": escolhe o artista, o dia e o horário e manda seus dados. Em até 24h a gente confirma no WhatsApp. Se preferir conversar antes de marcar, use a aba "Planejar".',
-  },
-  {
-    question: 'Precisa de sinal?',
-    answer:
-      'Sim. Um sinal de R$ 100 reserva a data e é abatido do valor final. Ele é devolvido se você desmarcar com mais de 48h de antecedência.',
-  },
-  {
-    question: 'Posso ver o desenho antes da sessão?',
-    answer:
-      'Pode. A arte é enviada de 2 a 5 dias antes para você aprovar. Ajustes de tamanho e posicionamento são feitos na hora, no dia da sessão.',
-  },
-  {
-    question: 'Posso levar acompanhante?',
-    answer:
-      'Uma pessoa, sim. O espaço é pequeno e a gente prefere manter o ambiente tranquilo para quem está sendo tatuado.',
   },
   {
     question: 'Vocês atendem sem hora marcada?',
