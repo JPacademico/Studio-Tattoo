@@ -27,7 +27,7 @@ export function GalleryPage() {
             </Reveal>
 
             <TattooMachineIcon
-              className="pointer-events-auto absolute top-0 right-0 size-12 opacity-90 transition-opacity duration-300 hoverable:hover:opacity-100 sm:size-20 md:size-28 lg:size-36"
+              className="pointer-events-auto absolute top-0 right-0 size-16 opacity-90 transition-opacity duration-300 hoverable:hover:opacity-100 sm:size-24 md:size-32 lg:size-40"
             />
 
             <h1 className="mt-5 text-[clamp(2.6rem,8vw,5.5rem)] leading-[0.92] text-bone">

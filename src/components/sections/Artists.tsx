@@ -40,7 +40,7 @@ export function Artists() {
             snap-proximity instead of snap-mandatory (WebKit holds a mandatory
             snap axis more possessively while it's still resolving which way
             a touch is going, which alone was enough to eat the gesture). */}
-        <div className="mt-12 -mx-5 flex snap-x snap-proximity gap-3 overflow-x-auto overflow-y-hidden px-5 pb-4 [touch-action:pan-x] sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:touch-auto md:px-0 lg:grid-cols-4">
+        <div className="mt-12 -mx-5 flex snap-x snap-proximity gap-3 overflow-x-auto overflow-y-hidden px-5 pb-4 sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:touch-auto md:px-0 lg:grid-cols-4">
           {artists.map((artist, i) => (
             <ArtistCard key={artist.id} artist={artist} index={i} />
           ))}
