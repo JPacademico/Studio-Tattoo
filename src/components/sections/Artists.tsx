@@ -30,8 +30,12 @@ export function Artists() {
         </div>
 
         {/* Snap-scroll carousel on phones, grid from md up. Tighter gap below
-            sm keeps a sliver of the next card in view, hinting there's more. */}
-        <div className="mt-12 -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 lg:grid-cols-4">
+            sm keeps a sliver of the next card in view, hinting there's more.
+            touch-action:pan-x tells the browser this element only claims
+            horizontal drags — without it, a vertical swipe that starts here
+            gets captured by the horizontal scroller instead of scrolling the
+            page, so the user has to lift their thumb outside the carousel. */}
+        <div className="mt-12 -mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-4 [touch-action:pan-x] sm:-mx-8 sm:gap-4 sm:px-8 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:touch-auto md:px-0 lg:grid-cols-4">
           {artists.map((artist, i) => (
             <ArtistCard key={artist.id} artist={artist} index={i} />
           ))}
