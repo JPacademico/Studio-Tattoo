@@ -126,7 +126,7 @@ export function Lightbox({ pieces, index, onClose, onNavigate }: LightboxProps) 
             </figcaption>
           </motion.figure>
 
-          <p className="absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 text-[0.68rem] text-muted">
+          <p className="hidden md:block absolute bottom-[max(1rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 text-[0.68rem] text-muted">
             Arraste ou use ← → para navegar
           </p>
         </motion.div>
