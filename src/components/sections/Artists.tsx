@@ -14,28 +14,19 @@ export function Artists() {
       className="relative scroll-mt-24 px-5 pt-16 pb-14 sm:px-8 sm:pt-20 sm:pb-16"
     >
       <div className="mx-auto max-w-[80rem]">
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <Reveal>
-              <p className="eyebrow">Quem tatua</p>
-            </Reveal>
-            <h2 className="mt-4 text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[0.95] text-bone">
-              <RevealWords text="Quatro mãos," className="block" />
-              <RevealWords
-                text="quatro traços."
-                className="block italic text-dust"
-                delay={0.12}
-                emberWords={['traços']}
-              />
-            </h2>
-          </div>
-
-          <Reveal delay={0.1}>
-            <p className="max-w-xs text-[0.88rem] leading-relaxed text-muted sm:text-right">
-              Cada artista tem agenda e estilo próprios. Escolha quem combina com a sua ideia — ou
-              mande mensagem e a gente indica.
-            </p>
+        <div>
+          <Reveal>
+            <p className="eyebrow">Quem tatua</p>
           </Reveal>
+          <h2 className="mt-4 text-[clamp(2.2rem,5.5vw,3.6rem)] leading-[0.95] text-bone">
+            <RevealWords text="Quatro mãos," className="block" />
+            <RevealWords
+              text="quatro traços."
+              className="block italic text-dust"
+              delay={0.12}
+              emberWords={['traços']}
+            />
+          </h2>
         </div>
 
         {/* Snap-scroll carousel on phones, grid from md up. Tighter gap below
